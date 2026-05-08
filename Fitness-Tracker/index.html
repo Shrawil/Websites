@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fitness Tracker</title>
+        <style>
+            body { 
+                font-family: system-ui, sans-serif;
+                max-width: 480px;
+                margin: 40px auto;
+                padding: 20px 28px;
+                background: #f7faff;
+                border: 1px solid #d6e2ff;
+                border-radius: 16px;
+                box-shadow: 0 0 12px rgba(0,0,0,0.06);
+            }
+            
+            h2 {
+                text-align: center;
+                margin-bottom: 20px;
+                color: #1a3a8a;
+            }
+            
+            .exercise-row {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .exercise-row select,
+            .exercise-row input { 
+                flex: 1;
+                padding: 7px 10px;
+                border: 2px solid #b9c6e0; 
+                border-radius: 6px;
+                background: white;
+            }
+            
+            .remove-btn {
+                align-self: flex-end;
+                width: auto;
+                padding: 6px 14px;
+                height: auto;
+                font-size: 14px;
+                background: #fff5f5;
+                border: 1px solid #f1b0b0;
+            }
+            
+            button { 
+                padding: 10px 16px; 
+                border: none;
+                border-radius: 6px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+            
+        #submitBtn {
+            position: sticky;
+            bottom: 10px;
+            margin-top: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0);
+        }
+            #addBtn { background: #28c22f; color: white; margin-top: 6px; }
+            #savePkgBtn { background: #f39c12; color: white; }
+            
+            .box {
+                border: 1px solid #d6e2ff;
+                padding: 16px;
+                border-radius: 10px;
+                margin-top: 20px;
+                background: white;
+            }
+        @media (max-width: 600px) {
+            body {
+                margin: 0;
+                border-radius: 0;
+                max-width: 100%;
+                padding: 16px;
+                box-shadow: none;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            .exercise-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .exercise-row select,
+            .exercise-row input {
+                font-size: 16px;
+                padding: 12px;
+            }
+            
+            .remove-btn {
+                width: 100%;
+                height: 40px;
+                font-size: 18px;
+            }
+            
+            button {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+            
+            #addBtn {
+                margin-top: 12px;
+            }
+            
+            #savePkgBtn {
+                margin-top: 12px;
+            }
+            
+            .box {
+                font-size: 15px;
+            }
+        }
+            
+        </style>
+        </head>
+    
+        <body>
+        <div id="profileBar" style="
+            display:flex;
+            align-items:center;
+            justify-content:flex-end;
+            gap:10px;
+            margin-bottom:16px;
+        ">
+            <div id="avatar" style="
+                width:36px;
+                height:36px;
+                border-radius:50%;
+                background:#1a3a8a;
+                color:white;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-weight:700;
+                cursor:pointer;
+            ">?</div>
+            <span id="profileName" style="font-weight:600;"></span>
+        </div>
+        
+        <input type="file" id="avatarInput" accept="image/*" style="display:none;">
+
+        <h2>Fitness Tracker</h2>
+        <div id="workoutUI">
+            <div id="exerciseContainer"></div>
+            <button id="addBtn">+ Add Exercise</button>
+            <br><br>
+            
+            <button id="savePkgBtn" style="background:#f39c12;color:white;margin-top:6px;">Save as Package</button>
+                
+            <br><br>
+            <label>Load Package:</label>
+            <select id="packageSelect">
+                <option value="">-- None --</option>
+            </select>
+                
+            <button id="submitBtn">Submit</button><br><br>
+        </div>
+        
+        <div id="summary" class="box" style="display:none;"></div>
+        <div id="streakBox" class="box"></div>
+            
+        <script>
+            const exerciseNames = {
+                wallpushups: "Wall Push Ups",
+                kneepushups: "Knee Push Ups",
+                normalpushups: "Normal Push Ups",
+                widepushups: "Wide Push Ups",
+                diamondpushups: "Diamond Push Ups",
+                russianpushups: "Russian Push Ups",
+                declinedpushups: "Declined Push Ups",
+                pikepushups: "Pike Push Ups",
+                archerpushups: "Archer Push Ups",
+                pseudo_planche_pushups: "Pseudo Planche Push Ups",
+                planche_pushups: "Planche Push Ups",
+                dips: "Dips",
+            
+                australianpullups: "Australian Pull Ups",
+                chinups: "Chin Ups",
+                closepullups: "Close Grip Pull Ups",
+                pullups: "Pull Ups",
+                widepullups: "Wide Grip Pull Ups",
+                negativemuscleups: "Negative Muscle Ups",
+                muscleups: "Muscle Ups",
+            
+                squats: "Squats",
+                lunges: "Lunges",
+                glutebridges: "Glute Bridges",
+                calfraises: "Calf Raises",
+                wall_sit: "Wall Sit",
+                jump_squats: "Jump Squats",
+                pistolsquats: "Pistol Squats",
+            
+                planks: "Planks",
+                side_plank: "Side Plank",
+                situps: "Sit Ups",
+                flutter_kicks: "Flutter Kicks",
+                legraises: "Leg Raises",
+                hanging_leg_raises: "Hanging Leg Raises",
+                hollow_body_hold: "Hollow Body Hold",
+                toes_to_bar: "Toes to Bar",
+                lsit: "L-Sit",
+            
+                jumping_jacks: "Jumping Jacks",
+                high_knees: "High Knees",
+                mountain_climbers: "Mountain Climbers",
+                skipping: "Skipping",
+                burpees: "Burpees",
+                bear_crawl: "Bear Crawl"
+            };
+
+
+            
+            /* ----------- AVATAR AND USERNAME SYSTEM ------------*/
+
+            document.getElementById("avatar").addEventListener("click", () => {
+                if (!confirm("Edit profile?")) return;
+            
+                const currentName = getUserName();
+                const newName = prompt("Enter your name:", currentName);
+                if (newName) saveUser(newName);
+            
+                document.getElementById("avatarInput").click();
+            });
+
+            document.getElementById("avatarInput").addEventListener("change", e => {
+                const file = e.target.files[0];
+                if (!file) return;
+            
+                const reader = new FileReader();
+                reader.onload = () => {
+                    saveUser(null, reader.result);
+                    initProfile();
+                };
+                reader.readAsDataURL(file);
+            });
+            function getUserName() {
+                return localStorage.getItem("username");
+            }
+            
+            function getAvatar() {
+                return localStorage.getItem("userAvatar");
+            }
+            
+            function saveUser(name, avatar) {
+                if (name) localStorage.setItem("username", name);
+                if (avatar) localStorage.setItem("userAvatar", avatar);
+            }
+            
+            function initProfile() {
+                let name = getUserName();
+                if (!name) {
+                    name = prompt("Enter your name:");
+                    if (!name) name = "Anonymous Grinder";
+                    saveUser(name);
+                }
+            
+                const avatar = getAvatar();
+                const avatarDiv = document.getElementById("avatar");
+                const nameSpan = document.getElementById("profileName");
+            
+                nameSpan.textContent = name;
+            
+                if (avatar) {
+                    avatarDiv.style.backgroundImage = `url(${avatar})`;
+                    avatarDiv.style.backgroundSize = "cover";
+                    avatarDiv.textContent = "";
+                } else {
+                    avatarDiv.textContent = name.charAt(0).toUpperCase();
+                }
+            }
+
+            
+            /* ----------------- PACKAGE SYSTEM ----------------- */
+
+            function getPackages() {
+                return JSON.parse(localStorage.getItem("packages") || "{}");
+            }
+            
+            function savePackages(pkgs) {
+                localStorage.setItem("packages", JSON.stringify(pkgs));
+            }
+            
+            function refreshPackageList() {
+                const pkgs = getPackages();
+                const pkgSelect = document.getElementById("packageSelect");
+                pkgSelect.innerHTML = `<option value="">-- None --</option>`;
+                for (const name in pkgs) {
+                    const opt = document.createElement("option");
+                    opt.value = name;
+                    opt.textContent = name;
+                    pkgSelect.appendChild(opt);
+                }
+            }
+            
+            /* ----------------- ROW CREATION ----------------- */
+            
+            function createExerciseRow(exValue = "", amtValue = "") {
+                const row = document.createElement("div");
+                row.className = "exercise-row";
+                
+                row.innerHTML = `
+                    <select class="exercise">
+                        <option value="">-- Select --</option>
+                        
+                        <option value="wallpushups">Wall Push Ups</option>
+                        <option value="kneepushups">Knee Push Ups</option>
+                        <option value="normalpushups">Normal Push Ups</option>
+                        <option value="widepushups">Wide Push Ups</option>
+                        <option value="diamondpushups">Diamond Push Ups</option>
+                        <option value="russianpushups">Russian Push Ups</option>
+                        <option value="declinedpushups">Declined Push Ups</option>
+                        <option value="pikepushups">Pike Push Ups</option>
+                        <option value="archerpushups">Archer Push Ups</option>
+                        <option value="pseudo_planche_pushups">Pseudo Planche Push Ups</option>
+                        <option value="planche_pushups">Planche Push Ups</option>
+                        <option value="dips">Dips</option>
+                        
+                        <option value="australianpullups">Australian Pull Ups</option>
+                        <option value="chinups">Chin Ups</option>
+                        <option value="closepullups">Close Grip Pull Ups</option>
+                        <option value="pullups">Pull Ups</option>
+                        <option value="widepullups">Wide Grip Pull Ups</option>
+                        <option value="negativemuscleups">Negative Muscle Ups</option>
+                        <option value="muscleups">Muscle Ups</option>
+                        
+                        <option value="squats">Squats</option>
+                        <option value="lunges">Lunges</option>
+                        <option value="glutebridges">Glute Bridges</option>
+                        <option value="calfraises">Calf Raises</option>
+                        <option value="wall_sit">Wall Sit</option>
+                        <option value="jump_squats">Jump Squats</option>
+                        <option value="pistolsquats">Pistol Squats</option>
+                        
+                        <option value="planks">Planks</option>
+                        <option value="side_plank">Side Plank</option>
+                        <option value="situps">Sit Ups</option>
+                        <option value="flutter_kicks">Flutter Kicks</option>
+                        <option value="legraises">Leg Raises</option>
+                        <option value="hanging_leg_raises">Hanging Leg Raises</option>
+                        <option value="hollow_body_hold">Hollow Body Hold</option>
+                        <option value="toes_to_bar">Toes to Bar</option>
+                        <option value="lsit">L-Sit</option>
+                        
+                        <option value="jumping_jacks">Jumping Jacks</option>
+                        <option value="high_knees">High Knees</option>
+                        <option value="mountain_climbers">Mountain Climbers</option>
+                        <option value="skipping">Skipping</option>
+                        <option value="burpees">Burpees</option>
+                        <option value="bear_crawl">Bear Crawl</option>
+                        
+                    </select>
+                    <input type="text" class="amount" placeholder="Eg. 20 reps or 1 min">
+                    <button class="remove-btn" title="Remove row">&times;</button>
+                `;
+                
+                const ex = row.querySelector(".exercise");
+                const amt = row.querySelector(".amount");
+                const removeBtn = row.querySelector(".remove-btn");
+                
+                ex.value = exValue;
+                amt.value = amtValue;
+                
+                removeBtn.addEventListener("click", () => row.remove());
+                
+                document.getElementById("exerciseContainer").appendChild(row);
+                return row;
+            }
+            
+            /* ----------------- LOAD PACKAGE ----------------- */
+            
+            document.getElementById("packageSelect").addEventListener("change", () => {
+                const name = document.getElementById("packageSelect").value;
+                if (!name) return;
+                
+                const pkgs = getPackages();
+                const pkg = pkgs[name];
+                
+                const container = document.getElementById("exerciseContainer");
+                container.innerHTML = "";
+                
+                pkg.forEach(item => createExerciseRow(item.ex, item.amt));
+            });
+            
+            /* ----------------- SAVE PACKAGE ----------------- */
+            
+            document.getElementById("savePkgBtn").addEventListener("click", () => {
+                const rows = document.querySelectorAll(".exercise-row");
+                let pkg = [];
+                
+                rows.forEach(row => {
+                    const ex = row.querySelector(".exercise").value;
+                    const amt = row.querySelector(".amount").value.trim();
+                    if (ex && amt) pkg.push({ ex, amt });
+                });
+                
+                if (pkg.length === 0) {
+                    alert("Add at least one exercise to save a package.");
+                    return;
+                }
+                
+                const name = prompt("Name your package:");
+                if (!name) return;
+                
+                const pkgs = getPackages();
+                pkgs[name] = pkg;
+                savePackages(pkgs);
+                refreshPackageList();
+                
+                alert("Package saved.");
+            });
+            
+            /* ----------------- STREAK SYSTEM ----------------- */
+            
+            function getToday() {
+                const d = new Date();
+                return d.toISOString().split("T")[0];
+            }
+            
+            function loadStreak() {
+                return Number(localStorage.getItem("streak") || 0);
+            }
+            
+            function loadLastDate() {
+                return localStorage.getItem("lastDate") || "";
+            }
+            
+            function saveStreak(streak, date) {
+                localStorage.setItem("streak", streak);
+                localStorage.setItem("lastDate", date);
+            }
+            
+            function updateStreak() {
+                const today = getToday();
+                const last = loadLastDate();
+                let streak = loadStreak();
+                
+                if (last === today) return streak;
+                
+                const y = new Date();
+                y.setDate(y.getDate() - 1);
+                const yesterday = y.toISOString().split("T")[0];
+                
+                if (last === yesterday) streak++;
+                else streak = 1;
+                
+                saveStreak(streak, today);
+                return streak;
+            }
+            
+            function refreshStreakBox() {
+                const streak = loadStreak();
+                const last = loadLastDate();
+                document.getElementById("streakBox").innerHTML =
+                    `<strong>Current Streak:</strong> ${streak} days<br>
+                     <strong>Last Workout:</strong> ${last || "None"}`;
+            }
+            
+            /* ----------------- SUBMIT ----------------- */
+            
+            document.getElementById("submitBtn").addEventListener("click", () => {
+                const rows = document.querySelectorAll(".exercise-row");
+                const summary = document.getElementById("summary");
+                const workoutUI = document.getElementById("workoutUI");
+                let list = "";
+            
+                rows.forEach(row => {
+                    const ex = row.querySelector(".exercise").value;
+                    const amt = row.querySelector(".amount").value.trim();
+                    if (ex && amt) {
+                        const label = exerciseNames[ex] || ex;
+                        list += `<p><strong>${label}:</strong> ${amt}</p>`;
+                    }
+                });
+            
+                if (!list) {
+                    summary.style.display = "block";
+                    summary.textContent = "Fill at least one exercise row.";
+                    return;
+                }
+            
+                const streak = updateStreak();
+            
+                summary.style.display = "block";
+                summary.innerHTML = `
+                    <h3>Workout Summary</h3>
+                    ${list}
+                    <p><strong>Streak:</strong> ${streak} days</p>
+                    <p style="font-size:12px;color:#666;">Take a screenshot</p>
+                `;
+            
+                workoutUI.style.opacity = "0";
+                workoutUI.style.pointerEvents = "none";
+            
+                setTimeout(() => {
+                    workoutUI.style.display = "none";
+                }, 200);
+            
+                refreshStreakBox();
+            });
+
+            /* ----------------- INIT ----------------- */
+            
+            // THIS is the missing line you didn't have in your last file:
+            document.getElementById("addBtn").addEventListener("click", createExerciseRow);
+            
+            // create first row and load saved state
+            createExerciseRow();
+            refreshPackageList();
+            refreshStreakBox();
+            initProfile();
+        </script>
+            
+    </body>
+</html>
