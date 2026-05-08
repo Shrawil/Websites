@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+    	font-family: monospace;
+    	text-align: center;
+    	background: url("https://files.catbox.moe/kvktwe.jpg");
+        background-size: cover;      /* Scales the image to fill the screen */
+        background-position: center; /* Centers the image */
+        background-attachment: fixed; /* Keeps the background from scrolling */
+        background-color: #FDF5E6;
+    }
+    
+    h1 {
+    	padding: 5px;
+    	margin: 5%;
+    	border-radius: 30px;
+    	background-color: cyan;
+    }
+    h2 {
+    	padding: 10px 10px;
+    	margin-left: 17%;
+    	margin-right: 17%;
+    	border-radius: 30px;
+    	background-color: turquoise;
+    	transition: transform 0.2s ease;
+    }
+    h2:hover {
+    	transform: scale(1.05);
+    	background-color: cyan;
+    }
+    h2:active {
+    	transform: scale(0.995);
+    }
+    #container {
+    	display: grid;
+    	grid-template-columns: 1fr 1fr;
+    }
+	  #getoutimg {
+      justify-self: center;
+		  display: none;
+	  }
+	  video {
+	    display: none;
+	    justify-self: center;
+	  }
+  </style>
+  <title>Do you like cats?</title>
+</head>
+<body>
+	<audio id="getout" src="https://files.catbox.moe/njvbyh.mp3"></audio>
+  <h1 id="h1text">Do you like cats?</h1>
+  <video id="catvid" width="300" height="360" controls preload="auto">
+    <source src="https://memestube.com/download.php?fileUrl=https://media.memestube.com/meme/happy-happy-happy-cat-green-screen-video-meme-download.mp4" type="video/mp4">
+  </video>
+  <img id="getoutimg" src="https://files.catbox.moe/oj6119.png">
+  <div id="container">
+    <h2 id="yes">YES!</h2>
+    <h2 id="no">NO!</h2>
+  </div>
+  <script>
+    document.getElementById("no").onclick = function() {
+      document.getElementById("getoutimg").style.display = 'block';
+      document.getElementById("getout").play();
+      document.getElementById("container").style.display = 'none';
+      document.getElementById("h1text").innerText = 'GET OUT!';
+    }
+    document.getElementById("yes").onclick = function() {
+      document.getElementById("catvid").play();
+      document.getElementById("catvid").style.display = 'block';
+      document.getElementById("container").style.display = 'none';
+      document.getElementById("h1text").innerText = 'ME TOO!';
+    }
+  </script>
+</body>
+</html>
