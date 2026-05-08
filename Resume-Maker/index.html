@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Generator</title>
+  <style>
+    body {
+      font-family: monospace;
+      text-align: center;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    input {
+      text-align: center;
+      padding: 8px;
+      margin: 5px;
+      width: 250px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-top: 15px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      background: #444;
+      color: white;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background: #222;
+    }
+
+    #resume {
+      margin-top: 30px;
+      padding: 20px;
+      text-align: left;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #aaa;
+      border-top: 2px dashed gray;
+    }
+  </style>
+</head>
+<body>
+  <h1>Resume Generator</h1>
+
+  <input id="name" placeholder="Your Name"><br>
+  <input id="age" placeholder="Age"><br>
+  <input id="degree" placeholder="Degree (e.g. BCA)"><br>
+  <input id="college" placeholder="College"><br>
+  <input id="passoutyear" placeholder="Year of Passing"><br>
+  <input id="projects" placeholder="Projects (comma-separated)"><br>
+  <input id="langs" placeholder="Programming Languages"><br>
+  <input id="father" placeholder="Father's Name"><br>
+  <input id="mother" placeholder="Mother's Name"><br>
+  <input id="address" placeholder="Address"><br>
+  <input id="city" placeholder="City"><br>
+  <input id="state" placeholder="State"><br>
+  <input id="phone" placeholder="Phone Number"><br>
+  <input id="email" placeholder="Email"><br>
+  <input id="cgpa" placeholder="CGPA / Percentage"><br>
+  <input id="hobbies" placeholder="Hobbies (comma-separated)"><br>
+  <input id="linkedin" placeholder="LinkedIn URL"><br>
+  <input id="github" placeholder="GitHub URL"><br>
+
+  <br>
+  <button onclick="generateResume()">Create Resume</button>
+  <button onclick="window.print()">Print Resume</button>
+
+  <div id="resume"></div>
+
+  <script>
+    function generateResume() {
+      const get = id => document.getElementById(id).value;
+
+      const name = get('name');
+      const age = get('age');
+      const degree = get('degree');
+      const college = get('college');
+      const passoutyear = get('passoutyear');
+      const projects = get('projects');
+      const langs = get('langs');
+      const father = get('father');
+      const mother = get('mother');
+      const address = get('address');
+      const city = get('city');
+      const state = get('state');
+      const phone = get('phone');
+      const email = get('email');
+      const cgpa = get('cgpa');
+      const hobbies = get('hobbies');
+      const linkedin = get('linkedin');
+      const github = get('github');
+
+      document.getElementById('resume').innerHTML = `
+        <h1>Resume</h1>
+        <p><strong>${name}</strong>, age <strong>${age}</strong>, has graduated in <strong>${degree}</strong> from <strong>${college}</strong> in <strong>${passoutyear}</strong>.</p>
+
+        <h2>Achievements</h2>
+        <p>${name} has worked on multiple projects such as <strong>${projects}</strong> and has built a good foundation, with experience in this field and mastery in <strong>${langs}</strong>.</p>
+
+        <h2>Academic Details</h2>
+        <p>Degree: ${degree}<br>CGPA: ${cgpa}<br>Year of Passing: ${passoutyear}</p>
+
+        <h2>Personal Information</h2>
+        <p>Father's Name: Mr. ${father}<br>Mother's Name: Mrs. ${mother}<br>Address: ${address}, ${city}, ${state}</p>
+        <p>Phone: ${phone}<br>Email: ${email}</p>
+
+        <h2>Skills & Interests</h2>
+        <p>Languages: ${langs}<br>Hobbies: ${hobbies}</p>
+
+        <h2>Online Profiles</h2>
+        <p>LinkedIn: <a href="${linkedin}" target="_blank">${linkedin}</a><br>
+        GitHub: <a href="${github}" target="_blank">${github}</a></p>
+      `;
+
+      // Scroll to resume
+      document.getElementById('resume').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
