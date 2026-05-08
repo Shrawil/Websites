@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Title</title>
+        <style>
+            body {
+                font-family: cursive;
+                text-align: center;
+                color: aqua;
+                background-color: black;
+            }
+            h1 {
+                border: dotted;
+            }
+            button {
+                transition: transform 0.2s ease;
+                background-color: #000000;
+                border-color: aqua;
+                color: aqua;
+                border: dotted;
+                padding: 10px 50px;
+                font-size: larger;
+            }
+            button:hover {
+                transform: scale(1.2);
+                background-color: #212121; 
+            }            
+            button:active {
+                transform: scale(0.9);
+                background-color: #000000; 
+            }
+            .container {
+                border: solid;
+            }
+            .cell {
+                transition: transform 0.2s ease;
+            }
+            .cell:hover {
+                background-color: aqua;
+                color: black;
+                cursor: pointer;
+            }
+        </style>
+        <!--link rel="stylesheet" href="styles.css" /-->
+        <!--script src="script.js"></!--script-->
+    </head>
+    <body>
+        <h1 class="title">Quiz Game</h1>
+        <button id="start" onclick="start()">Start</button><br><br>
+        <div class="container">
+            <p id="content"></p>
+            <p class="cell" id="op1"></p>
+            <p class="cell" id="op2"></p>
+            <p class="cell" id="op3"></p>
+        </div>
+        <label id="result"></label>
+        <br />
+        <script>
+            const content = document.getElementById("content");
+            const op1 = document.getElementById("op1");
+            const op2 = document.getElementById("op2");
+            const op3 = document.getElementById("op3");
+            let question = 0;
+            let correct = 0;
+            let running = false;
+            
+            document.getElementById("start").onclick = function() {
+                if(running) {
+                    endQuiz();
+                }
+                else {
+                    running = true;
+                    question = 1;
+                    correct = 0;
+                    this.innerText = "Good Luck!";
+                    showQuestion();
+                }
+            }
+            
+            op1.onclick = function() { choose(1); }
+            op2.onclick = function() { choose(2); }
+            op3.onclick = function() { choose(3); }
+            
+            function choose(option) {
+                if(!running) return;
+                if(question === 1 && option === 1) correct++;
+                if(question === 2 && option === 1) correct++;
+                if(question === 3 && option === 2) correct++;
+                if(question === 4 && option === 3) correct++;
+                if(question === 5 && option === 3) correct++;
+                question++;
+                if(question > 5) {
+                    endQuiz();
+                } else {
+                    showQuestion();
+                }
+            }
+            
+            function showQuestion() {
+                if(question === 1) {
+                    content.innerText = "Question 1 : How many colours are there in a rainbow?";
+                    op1.innerText = "1. Seven";
+                    op2.innerText = "2. Eight";
+                    op3.innerText = "3. Nine";
+                }
+                else if(question === 2) {
+                    content.innerText = "Question 2 : How many teeth does an adult human have?";
+                    op1.innerText = "1. Thirty Two";
+                    op2.innerText = "2. Forty";
+                    op3.innerText = "3. Twenty Eight";
+                }
+                else if(question === 3) {
+                    content.innerText = "Question 3 : How many legs do a spider have?";
+                    op1.innerText = "1. Seven";
+                    op2.innerText = "2. Six";
+                    op3.innerText = "3. Five";
+                }
+                else if(question === 4) {
+                    content.innerText = "Question 4 : First 3 prime numbers are.";
+                    op1.innerText = "1. 0, 1, 2";
+                    op2.innerText = "2. 1, 2, 3";
+                    op3.innerText = "3. 2, 3, 5";
+                }
+                else if(question === 5) {
+                    content.innerText = "Question 5 : What is glass made of?";
+                    op1.innerText = "1. Marine Sand";
+                    op2.innerText = "2. Red Sand";
+                    op3.innerText = "3. Silica Sand";
+                }
+            }
+            
+            function endQuiz() {
+                running = false;
+                document.getElementById("start").innerText = "Reset";
+                content.innerText = "Quiz ended! Thank you!";
+                op1.innerText = "";
+                op2.innerText = "";
+                op3.innerText = "";
+                document.getElementById("result").innerText = `Correct answers: ${correct}`;
+            }
+        </script>
+    </body>
+</html>
