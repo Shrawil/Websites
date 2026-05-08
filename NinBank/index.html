@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Banking Simulator</title>
+        <style>
+            html {
+                text-align: center;
+            }
+            body {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                background: linear-gradient(to RIGHT, #0a192f, #243b55);
+                color: #ffb380;
+            }
+            h1 {
+              border: double;
+              padding: 10px 20px;
+            }
+            nav a {
+                border: double;
+            }
+            img {
+                height: 100px;
+                position: absolute;
+                left: 150px;
+                top: 200px;
+                border: groove;
+            }
+            .container {
+                justify-content: center;
+                display: grid;
+                grid-template-columns: repeat(5, 150px);
+            }
+            .cell {
+                text-align: center;
+                margin: 5px;
+                border: double;
+                transition: transform 0.2s ease;
+                padding: 10px;
+            }
+            .cell:hover {
+                transform: scale(1.1);
+                background-color: dimgray;
+                color: aliceblue;
+                cursor: pointer;
+            }
+            .cell:active {
+                transform: scale(0.95);
+            }
+            #loginDiv {
+                text-align: center;
+                justify-self: center;
+            }
+            h3 {
+                border: double;
+            }
+            input {
+                border-radius: 10px;
+            }
+            .submit {
+                color: #000000;
+                background-color: chocolate;
+                border: inset;
+                border-radius: 10px;
+                border-color: coral;
+                transition: transform 0.2s ease;
+            }
+            .submit:hover {
+                transform: scale(1.1);
+            }
+            .submit:active {
+                transform: scale(0.95);
+            }
+            .label {
+                border: solid;
+                border-radius: 20px;
+                padding: 10px 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>HTML BANK</h1>
+        <div class="container">
+            <div class="cell" id="services">Services</div>
+            <div class="cell" id="faqs">FAQs</div>
+            <div class="cell" id="credits">Credits</div>
+            <div class="cell" id="login">Login</div>
+            <div class="cell" id="register">Register</div>
+        </div>
+        <br />
+        <p id="content"></p>
+        <br>
+        <p id="content2"></p>
+        <script>
+            let user;
+            let content = document.getElementById("content");
+            let content2 = document.getElementById("content2");
+            let loggedIn = false;
+            let balance = 1000.00;
+            let univPass = null;
+            let transactions = [];
+            let n = 0;
+            
+            function home() {
+                content.innerHTML = `
+                <h4>Welcome!</h4>
+                <div class="container">
+                    <div class="cell" id="balance" onclick="showBal()">Balance</div>
+                    <div class="cell" id="pay" onclick="pay()">Pay</div>
+                    <div class="cell" id="transactions" onclick="trans()">Transactions</div>
+                    <div class="cell" id="deposit" onclick="deposit()">Deposit</div>
+                    <div class="cell" id="bills" onclick="bills()">Pay Bills</div>
+                </div>
+                `;
+            }
+            
+            function bills() {
+                content2.innerText = 'This feature is yet to come!';
+            }
+            
+            function showBal() {
+                content2.innerText = `Balance : ${balance}`;
+            }
+            
+             //PAY FUNCTION - START
+            function pay() {
+                content2.innerHTML = `
+                <label class="label">Username<input type="text" id="toUser" placeholder="Enter an username"></label><br>
+                <br><br>
+                <label class="label">Amount <input type="number" id="amount" placeholder="Enter an amount"></label><br>
+                <br><br>
+                <label class="label">Password<input type="password" id="confirm" placeholder="Enter your password"></label><br>
+                <br><br>
+                <input class="submit" type="submit" onclick="checkPay()">
+                `;
+            }
+            function checkPay() {
+                let amount = parseFloat(document.getElementById("amount").value);
+                let toUser = document.getElementById("toUser").value;
+                let confirmPass = document.getElementById("confirm").value;
+                if (!toUser || !amount || !confirmPass) {
+                    alert("Please fill all the fields!");
+                } else if (toUser == user) {
+                    alert("You can not pay yourself!");
+                } else if (univPass != confirmPass) {
+                    alert("Password is wrong!");
+                } else if (amount > balance) {
+                    alert("Insufficient Balance!");
+                } else {
+                    alert(`${amount}Rs paid to ${toUser} successfully!`);
+                    balance -= amount;
+                    content2.innerText = "Payment Successful!"
+                    n += 1;
+                    transactions.push({
+                        transactionID: n,
+                        amountPaid: amount,
+                        to: toUser
+                    });
+                }
+            }
+             //PAY FUNCTION - END
+            function trans() {
+                content2.innerHTML = "";
+                transactions.forEach(t => {
+                    content2.innerHTML += `${t.transactionID} - ${t.amountPaid}Rs paid to ${t.to}<br>`;
+                });
+            }
+            
+            //DEPOSIT FUNCTION - START
+            function deposit() {
+                content2.innerHTML = `
+                <label class="label">Amount<input type="number" id="depAmount" placeholder="Enter amount to deposit"></label><br>
+                <br><br>
+                <label class="label">Password <input type="password" id="depPass" placeholder="Enter your password"></label><br>
+                <br><br>
+                <input class="submit" type="submit" onclick="doDeposit()">
+                `;
+            }
+            function doDeposit() {
+                let amount = parseFloat(document.getElementById("depAmount").value);
+                let pass = document.getElementById("depPass").value;
+                if (!Boolean(amount) || !Boolean(pass)) {
+                    alert("Please enter all fields!");
+                }
+                else if (pass != univPass) {
+                    alert("Incorrect Password!");
+                }
+                else {
+                    balance += amount;
+                    home();
+                    content2.innerText = "Deposit Successful!"
+                    alert(`${amount}Rs added to your bank account successfully!`);
+                }
+            }
+            //DEPOSIT FUNCTION - END
+            //
+            //MAIN BAR
+            //
+            //REGISTER FUNCTION - START
+            document.getElementById("register").onclick = function() {
+                content2.innerHTML = ``;
+                content.innerHTML = `
+                <div id="loginDiv">
+                    <label class="label">First Name<input id="fname" type="text" placeholder="Enter your first name"></label><br>
+                    <br><br>
+                    <label class="label">Second Name<input id="sname" type="text" placeholder="Enter your second name"></label><br>
+                    <br><br>
+                    <label class="label">Username<input id="regUsername" type="text" placeholder="Choose a username"></label><br>
+                    <br><br>
+                    <label class="label">Email<input id="regEmail" type="email" placeholder="Enter an email"></label><br>
+                    <br><br>
+                    <label class="label">Password<input id="pass" type="password" placeholder="Set a password"></label><br>
+                    <br><br>
+                    <input class="submit" type="submit" onclick="doReg()">
+                </div>
+                `;
+            }
+            function doReg() {
+                let fname = document.getElementById("fname").value;
+                let sname = document.getElementById("sname").value;
+                let username = document.getElementById("regUsername").value;
+                let email = document.getElementById("regEmail").value;
+                let pass = document.getElementById("pass").value;
+                univPass = pass;
+                if(!Boolean(fname) || !Boolean(email) || !Boolean(pass)) {
+                    alert("Please fill all the fields!");
+                }
+                else {
+                    alert("Registered Successfully!");
+                    loggedIn = true;
+                    document.getElementById("login").innerText = username;
+                    home();
+                }
+            }
+
+             //LOGIN FUNCTION - START
+            document.getElementById("login").onclick = function() {
+                content2.innerHTML = ``;
+                if (loggedIn === false) {
+                    content.innerHTML = `
+                    <div id="loginDiv">
+                        <label class="label">Username<input id="username" type="text" placeholder="Enter your username"></label><br>
+                        <br><br>
+                        <label class="label">Password<input id="password" type="password" placeholder="Enter your password"></label><br>
+                        <br><br>
+                        <input class="submit" type="submit" onclick="doLogin()">
+                    </div>
+                    `;
+                }
+                else {
+                    home();
+                }
+            }
+            function doLogin() {
+                if (loggedIn === false) {
+                    let name = document.getElementById("username").value;
+                    user = name;
+                    let pass = document.getElementById("password").value;
+                    univPass = pass;
+                    let boolPass = Boolean(pass);
+                    let boolName = Boolean(name);
+                    if (!boolName || !boolPass) {
+                        alert("You must fill all the fields!");
+                    }
+                    else {
+                        loggedIn = true;
+                        alert("Logged In Successfully!");
+                        document.getElementById("login").innerText = name;
+                        home();
+                    }
+                }
+                else {
+                    alert("You have already Logged In!");
+                }
+            }
+             //LOGIN FUNCTION - END
+
+            document.getElementById("credits").onclick = function() {
+                content2.innerHTML = ``;
+                content.innerHTML = `
+                <p>Made by <strong>Shrawil Srivastava</strong>.</p>
+                <p>Coded on <strong>Phoenix Code</strong>.</p>
+                <p>Hosting on <strong>GitHub Pages</strong>.</p>
+                `;
+            }
+
+
+            document.getElementById("services").onclick = function() {
+                content2.innerHTML = ``;
+                content.innerHTML = `
+                <h4>Services We Provide</h4>
+                <ol>
+                    <li>
+                        You can create an account from home.
+                        <p>Open your account online without visiting a branch. Verification and setup are completed through secure digital steps.</p>
+                    </li>
+                    <li>
+                        Specially featured accounts for professionals.
+                        <p>We offer customized account options for freelancers, entrepreneurs, and salaried individuals with tools for tracking payments and managing finances.</p>
+                    </li>
+                    <li>
+                        24/7 Online Banking.
+                        <p>Access your funds, transfer money, and check your balance anytime through our secure online banking portal.</p>
+                    </li>
+                    <li>
+                        Fast Loan Approval.
+                        <p>Get personal and business loans processed quickly with minimal documentation and transparent interest rates.</p>
+                    </li>
+                    <li>
+                        Mobile App Support.
+                        <p>Manage your account through our mobile app—track transactions, pay bills, and receive instant notifications.</p>
+                    </li>
+                    <li>
+                        Customer Support Assistance.
+                        <p>Our customer service team is available around the clock to resolve your queries and guide you through any issue.</p>
+                    </li>
+                </ol>
+                `;
+            }
+
+
+            document.getElementById("faqs").onclick = function() {
+                content2.innerHTML = ``;
+                content.innerHTML = `
+                <h4>FAQs</h4>
+                <ol>
+                    <li>
+                        Can I open a 0 balance account?
+                        <p>Yes, we allow our customers to open a zero balance account with basic banking features and no minimum balance requirement.</p>
+                    </li>
+                    <li>
+                        How can I reset my online banking password?
+                        <p>You can reset your password by clicking on the “Forgot Password” option on the login page. Follow the steps to verify your identity and set a new password.</p>
+                    </li>
+                    <li>
+                        What documents are required to open an account?
+                        <p>We require valid ID proof (like Aadhaar or PAN card), address proof, and a passport-sized photograph for verification.</p>
+                    </li>
+                    <li>
+                        Are there any hidden charges?
+                        <p>No hidden charges. All fees, if applicable, are clearly mentioned in the terms and conditions before you proceed.</p>
+                    </li>
+                    <li>
+                        Can I transfer money internationally?
+                        <p>Yes, we provide international transfer services. However, additional verification and processing time may apply depending on the destination country.</p>
+                    </li>
+                    <li>
+                        How secure is my data?
+                        <p>Your personal and financial data is protected using industry-standard encryption and multi-factor authentication systems.</p>
+                    </li>
+                </ol>
+                `;
+            }
+        </script>
+        <h6>Made by Shrawil Srivatava.</h6>
+    </body>
+</html>
