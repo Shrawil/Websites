@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>ID Card Generator</title>
+  <style>
+    body {
+      margin: 0;
+      text-align: center;
+      font-family: monospace;
+      background-color: #272727;  
+    }
+    input {
+      text-align: center;
+      padding: 2px 1px;
+      border-radius: 7px;
+    }
+    #dob, #mob, #yob {
+      width: 93px;
+    }
+    #phone {
+      width: 141px;
+    }
+    #age {
+      width: 192px;
+    }
+    #address {
+      width: 163px;
+    }
+    #name {
+      width: 185px;
+    }
+    #college {
+      width: 161px;
+    }
+    p {
+      font-weight: bold;
+      text-shadow: #111 3px 3px 10px;
+    }
+    #card {
+      width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      text-align: left;
+      border: 3px inset #444;
+      border-radius: 5px;
+      background: linear-gradient(to right, rgb(161, 183, 225), #918cbe, rgb(161, 183, 225));
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      font-family: monospace;
+      color: #111;
+      position: relative;
+    }
+    h2 {
+      border: inset #111;
+      text-align: center;
+      border-width: 4px;
+      margin: 2px 2px;
+      padding: 1px 45px;
+      background: rgb(214, 175, 99);
+      border-radius: 8px 30px;
+    }
+    h1 {
+      text-align: center;
+      background: #000;
+      color: white;
+      padding: 11px;
+      width: 100%;
+      margin-top: 0%;
+    }
+    h4 {
+      text-align: center;
+      background: #141414;
+      color: white;
+      padding: 11px;
+      width: 100%;
+      margin-bottom: 0%;
+    }
+    #pfp {
+      border: inset;
+      border-color: #111;
+      position: absolute;
+      top: 60px;
+      right: 20px;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      display: none;
+    }
+    button {
+      transition: transform 0.2s ease;
+      border-radius: 7px;
+    }
+    button:hover {
+      transform: scale(1.1);
+    }
+    button:active {
+      transform: scale(0.9);
+    }
+    .grid {
+      background-color: #797979;
+      padding: 10px 10px;
+      border: solid;
+      border-radius: 10px;
+      margin: auto;
+      max-width: 420px;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+  <h1>ID Card Generator</h1>
+  <div class="grid">
+	  <input id="name" type="text"> Enter your name.<br><br>
+	  <input id="age" type="number"> Enter your age.<br><br>
+	  <input id="dob" type="number" placeholder="Date">
+	  <input id="mob" type="number" placeholder="Month">
+	  <input id="yob" type="number" placeholder="Year"><br><br>
+	  <input id="phone" type="number" placeholder="xxxxxxxxxx"> Enter your Contact No.<br><br>
+	  <input id="address" type="text"> Enter your address.<br><br>
+	  <input id="college" type="text"> Enter College name.<br><br>
+	  <input id="imageUpload" type="file" accept="image/*"><br><br>
+  </div><br>
+  <button onclick="generate()">Generate ID Card</button><br><br>
+
+  <div id="card">
+    <h2 id="divcollege">SACRET HEART DEGREE COLLEGE</h2>
+    <p id="divname">Name : Your name here</p>
+    <p id="divage">Age : Your age | Date of Birth : DD/MM/YYYY</p>
+    <p id="divno">Contact : Your contact here.</p>
+    <p id="divaddress">Address : Your address here.</p>
+    <img id="pfp">
+  </div>
+
+  <button onclick="downloadCard()">Download ID Card</button><br><br>
+
+  <h4>Made by Shrawil Srivastava.</h4>
+    <script>
+    window.onload = function () {
+      document.getElementById("imageUpload").addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const img = document.getElementById("pfp");
+          img.src = URL.createObjectURL(file);
+          img.style.display = "block";
+        }
+      });
+    }
+
+    function generate() {
+      const name = document.getElementById("name").value;
+      const age = document.getElementById("age").value;
+      const dob = document.getElementById("dob").value;
+      const mob = document.getElementById("mob").value;
+      const yob = document.getElementById("yob").value;
+      const phone = document.getElementById("phone").value;
+      const address = document.getElementById("address").value;
+      const college = document.getElementById("college").value;
+
+      const divname = document.getElementById("divname");
+      const divage = document.getElementById("divage");
+      const divno = document.getElementById("divno");
+      const divaddress = document.getElementById("divaddress");
+      const divcollege = document.getElementById("divcollege");
+
+      if (!name || !age || !dob || !mob || !yob || !phone || !address) {
+        alert("Please fill all fields.");
+        return;
+      }
+
+      divname.textContent = "Name : " + name;
+      divage.textContent = "Age : " + age + " | Date of Birth : " + dob + "/" + mob + "/" + yob;
+      divno.textContent = "Contact : " + phone;
+      divaddress.textContent = "Address : " + address;
+      if (!divcollege === "") {
+        divcollege.textContent = "SACRET HEART DEGREE COLLEGE";
+      }
+    }
+
+    function downloadCard() {
+      const card = document.getElementById("card");
+
+      html2canvas(card, {
+        backgroundColor: null,
+        scale: 2,
+        useCORS: true
+      }).then(canvas => {
+        const link = document.createElement("a");
+        link.download = "ID_Card.png";
+        link.href = canvas.toDataURL("image/png");
+        link.click();
+      });
+    }
+  </script>
+</body>
+</html>
