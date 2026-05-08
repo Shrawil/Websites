@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Imposter - Serene Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Zen+Old+Mincho&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f0f4f8; /* Light blue-gray */
+            font-family: 'Noto Sans JP', monospace, sans-serif;
+            color: #333;
+            padding: 20px;
+            text-align: center;
+            line-height: 1.6;
+            background-image: url('https://files.catbox.moe/nc5cyy.png');
+            background-repeat: no-repeat;
+            background-size: cover; /* This makes the image cover the entire background */
+            background-position: center center; /* This centers the image */
+            min-height: 100vh; /* Ensures the body takes full viewport height */
+            margin: 0; /* Remove default body margin */
+            display: flex; /* Use flexbox to center content vertically if needed */
+            justify-content: center; /* Center content horizontally */
+            align-items: center; /* Center content vertically */
+        }
+
+        .game-container {
+            background-color: rgba(255, 255, 255, 0.75); /* Semi-transparent white background */
+            backdrop-filter: blur(5px); /* Optional: adds a subtle blur effect behind the container */
+            border-radius: 15px; /* Rounded corners for a softer look */
+            padding: 30px;
+            margin: 40px auto; /* Center the container with some top/bottom margin */
+            max-width: 600px; /* Limit width for better readability on large screens */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+            text-align: center; /* Ensure text inside is centered */
+        }
+
+        h1 {
+            font-family: 'Zen Old Mincho', serif;
+            color: #3a5a40; /* Slightly darker green for better contrast */
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1); /* Subtle text shadow */
+        }
+        label {
+            font-size: 1.2em; /* Slightly larger label */
+            color: #4a6a5d; /* Darker muted teal for better visibility */
+            text-shadow: 0.5px 0.5px 2px rgba(0,0,0,0.05); /* Very subtle text shadow */
+        }
+        input[type="number"] {
+            padding: 10px;
+            border: 1px solid #a2beb0; /* Match player button border */
+            border-radius: 8px;
+            font-size: 1em;
+            width: 100px;
+            text-align: center;
+            margin-top: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slightly opaque white */
+            transition: border-color 0.3s ease;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #8fa69c; /* Softer green focus */
+        }
+        button {
+            background-color: #6a8e7e; /* A bit darker calm green */
+            color: white;
+            padding: 12px 25px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            background-color: #5a7b6c; /* Darker green on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .player-buttons-container {
+            display: flex;
+            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            justify-content: center;
+            gap: 10px; /* Space between buttons */
+            margin-top: 25px;
+            max-width: 800px; /* Allow wider button rows inside container */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .player-btn {
+            background-color: #9ac2af; /* Slightly darker light green */
+            color: #333;
+            padding: 10px 20px;
+            border: 1px solid #8bb19c; /* Darker border for contrast */
+            font-size: 1em;
+            flex-grow: 1; /* Allow buttons to grow */
+            max-width: 150px; /* Max width for individual buttons */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+        }
+        .player-btn:hover {
+            background-color: #8bb19c;
+        }
+        .player-btn.disabled {
+            background-color: rgba(219, 228, 232, 0.7); /* Match container transparency for disabled state */
+            color: #777;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        #word, #result {
+            margin-top: 30px;
+            font-size: 1.3em;
+            font-weight: bold;
+            min-height: 40px; /* Ensure consistent spacing */
+            color: #3a5a40; /* Darker green for messages */
+            text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05);
+        }
+        #result {
+            color: #d9534f; /* Red for imposter, or green for safe */
+        }
+        #word.imposter-message {
+            color: #c9403b; /* Slightly darker red for imposter message */
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .game-container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            button {
+                padding: 10px 20px;
+                font-size: 1em;
+            }
+            .player-buttons-container {
+                gap: 8px;
+            }
+            .player-btn {
+                width: calc(50% - 16px); /* Two buttons per row on small screens */
+                max-width: none;
+                padding: 8px 15px;
+            }
+            input[type="number"] {
+                width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Guess the Imposter</h1>
+
+        <label for="playerCount">Number of Players: </label>
+        <br>
+        <input type="number" id="playerCount" min="2" value="3">
+        <br>
+        <button onclick="startGame()">Start Game</button>
+
+        <div id="playerButtons" class="player-buttons-container"></div>
+        <div id="word"></div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        let imposterNumber = 0;
+        let commonWord = ""; // This will be chosen randomly each game
+        const words = ["Panda", "Pants", "Mango", "Human", "Minecraft", "Skin", "Sigma", "Towel", "Zombie", "Robot", "Chess", "Chicken", "Hoodie", "Laptop", "Mobile", "Kite", "Needle", "Glue", "Piano", "Shrawil", "Plant", "School", "Burger", "Mother", "Mouse", "Kitchen", "Ocean", "Mountain", "Book", "Chair"]; // Expanded list
+
+        let revealedPlayers = new Set(); // to track players whose info has been revealed and button disabled
+        let activePlayerButton = null; // Tracks the button currently showing info
+
+        function startGame() {
+            const count = parseInt(document.getElementById('playerCount').value);
+            if(count < 2) { alert("Minimum 2 players!"); return; }
+
+            imposterNumber = Math.floor(Math.random() * count) + 1;
+            revealedPlayers.clear();
+            commonWord = words[Math.floor(Math.random() * words.length)];
+            activePlayerButton = null; // Reset for new game
+
+            const btnContainer = document.getElementById('playerButtons');
+            btnContainer.innerHTML = "";
+            for(let i=1; i<=count; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = "Player " + i;
+                btn.className = "player-btn";
+                // Store player number on the button itself for easy access
+                btn.dataset.playerNum = i;
+                btn.onclick = () => handlePlayerButtonClick(btn); // Use new handler
+                btnContainer.appendChild(btn);
+            }
+
+            document.getElementById('word').textContent = "";
+            document.getElementById('result').textContent = "";
+            document.getElementById('word').classList.remove('imposter-message');
+        }
+
+        function handlePlayerButtonClick(button) {
+            const playerNum = parseInt(button.dataset.playerNum);
+            const wordElement = document.getElementById('word');
+            const resultElement = document.getElementById('result');
+
+            // --- CRITICAL FIX START ---
+            // If this player has already been revealed and disabled, do nothing.
+            if (revealedPlayers.has(playerNum)) {
+                return;
+            }
+            // --- CRITICAL FIX END ---
+
+            if (button === activePlayerButton) {
+                // Second click on the currently active button: Hide info and disable button
+                wordElement.textContent = "";
+                resultElement.textContent = "";
+                wordElement.classList.remove('imposter-message');
+                button.classList.add("disabled"); // Disable the button visually
+                revealedPlayers.add(playerNum); // Mark this player as permanently revealed/disabled
+                activePlayerButton = null; // No button is active anymore
+            } else if (activePlayerButton !== null) {
+                // Another player's info is currently showing, prevent new reveal
+                alert("Please click 'Player " + activePlayerButton.dataset.playerNum + "' again to hide their info first!");
+                return;
+            } else {
+                // First click: Show info
+                activePlayerButton = button; // Set this button as active
+
+                wordElement.classList.remove('imposter-message'); // Reset styling
+
+                if (playerNum === imposterNumber) {
+                    wordElement.textContent = "You are the IMPOSTER!";
+                    wordElement.classList.add('imposter-message'); // Add distinct styling
+                    resultElement.textContent = "Your goal is to blend in and guess the common word!";
+                } else {
+                    wordElement.textContent = "Your Word: " + commonWord;
+                    resultElement.textContent = "You are safe! Try to identify the imposter.";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
