@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Interaction</title>
+        <style>
+            body {
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+                background-color: #000000;
+            }
+            .card {
+                display: grid;
+                margin: contain;
+                grid-template-columns: repeat(3, 1fr);
+                margin: 10px;
+                gap: 50px;
+            }
+            #card1 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card1:active {
+                background-color: #57d1d1;
+            }            
+            #card2 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card2:active {
+                background-color: #081e1e;
+            }            
+            #card3 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card3:active {
+                transform: scale(1.05);
+            }            
+            #card4 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card4:active {
+                transform: scale(0.9);
+            }            
+            #card5 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+            }
+            #card5:active {
+                border: solid #ffffff;
+            }            
+            #card6 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card6:active {
+                transform: rotate(15deg);
+            }            
+            #card7 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card7:active {
+                transform: rotate(-15deg);
+            }
+            #card8 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card8:active {
+                transform: skew(-10deg, -10deg);
+            }
+            #card9 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card9:active {
+                transform: skew(10deg, 10deg);
+            }
+            #card10 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card10:active {
+                transform: skew(-10deg);
+            }
+            #card11 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+                transition: 0.2s;
+            }
+            #card11:active {
+                transform: skew(10deg);
+            }
+            #card12 {
+                cursor: pointer;
+                text-align: center;
+                color: aliceblue;
+                padding: 50px;
+                background-color: darkslategrey;
+                font-size: small;
+                border-radius: 10px;
+            }
+            #card12:active {
+                display: none;
+            }
+            span {
+                color: darkgrey;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card">
+            <div id="card1">
+                <h2>Click Me</h2>
+                <span>Glow</span>
+            </div>
+            <div id="card2">
+                <h2>Click Me</h2>
+                <span>Dark</span>
+            </div>
+            <div id="card3">
+                <h2>Click Me</h2>
+                <span>Size Increase</span>
+            </div>
+            <div id="card4">
+                <h2>Click Me</h2>
+                <span>Size Decrease</span>
+            </div>
+            <div id="card5">
+                <h2>Click Me</h2>
+                <span>Border</span>
+            </div>
+            <div id="card6">
+                <h2>Click Me</h2>
+                <span>Rotate Right</span>
+            </div>
+            <div id="card7">
+                <h2>Click Me</h2>
+                <span>Rotate Left</span>
+            </div>
+            <div id="card8">
+                <h2>Click Me</h2>
+                <span>Stretch Right</span>
+            </div>
+            <div id="card9">
+                <h2>Click Me</h2>
+                <span>Stretch Left</span>
+            </div>
+            <div id="card10">
+                <h2>Click Me</h2>
+                <span>Skew Right</span>
+            </div>
+            <div id="card11">
+                <h2>Click Me</h2>
+                <span>Skew Left</span>
+            </div>
+            <div id="card12">
+                <h2>Click Me</h2>
+                <span>Disappear</span>
+            </div>
+        </div>
+    </body>
+</html>
