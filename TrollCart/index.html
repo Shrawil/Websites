@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Trollcart</title>
+        <style>
+            html {
+                background: linear-gradient(135deg, #41e3c4, #334ee7);
+            }
+            body {
+                text-align: center;
+                font-family: monospace;
+                display: grid;
+                grid-template-columns: 1fr 3fr;
+                gap: 20px;
+                padding: 37px;
+                box-sizing: border-box;
+            }
+            
+            h1 {
+                font-family: "Segoe UI", Roboto, system-ui, sans-serif;
+                font-weight: 500;
+                transition: 0.2s ease;
+            }
+            
+            h1:hover {
+                color: #ff0000;
+            }
+            
+            img {
+                width: 100%;
+                height: 150px;
+                object-fit: cover;
+                border-radius: 30px;
+            }
+            
+            .bar {
+                border: none;
+                background: #f8f3f3;
+                border-radius: 15px;
+                padding: 25px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+                transition: 0.2s ease;
+            }
+            .bar:hover {
+                transform: scale(1.01);
+                background: #ffffff;
+            }
+            
+            .left-bar {
+                background: rgba(255, 255, 255, 0.6);
+                border-radius: 20px;
+                padding: 10px;
+                cursor: default;
+            }
+            
+            #home {
+                display: grid;
+                gap: 11px;
+                grid-template-columns: repeat(3, 1fr);
+                cursor: pointer;
+            }
+            
+            .item {
+                background: #505f95;
+                border: none;
+                color: antiquewhite;
+                border-radius: 25px;
+                padding: 12px;
+                box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+                transition: 0.2s ease;
+            }
+            
+            .item:hover {
+                transform: scale(1.01);
+                background: #818bad;
+            } 
+            
+            .item:active {
+                background: #558899;
+            }
+            
+            #counter {
+                padding: 10px;
+                border-radius: 10px;
+                background-color: #5ce35c;
+                box-shadow: 1px 1px 10px
+            }
+            
+            #user {
+                background-color: rgba(240, 248, 255, 0.46);
+                box-shadow: 0px 0px 10px;
+                border-radius: 10px;
+                cursor: default;
+                text-align: left;
+                padding: 50px;
+            }
+            
+            #userInner {
+                background-color: rgba(240, 248, 255, 0.46);
+                box-shadow: 0px 0px 10px;
+                border-radius: 10px;
+                padding: 50px;
+            }
+            
+            .dataShow {
+                background-color: rgba(240, 248, 255, 0.62);
+                box-shadow: 1px 1px 2px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+            
+            #cart {
+                background-color: rgba(240, 248, 255, 0.46);
+                box-shadow: 0px 0px 10px;
+                border-radius: 10px;
+                cursor: default;
+                text-align: left;
+                padding: 50px;
+            }
+            #cartInner {
+                background-color: rgba(240, 248, 255, 0.46);
+                box-shadow: 0px 0px 10px;
+                border-radius: 10px;
+                cursor: default;
+                text-align: left;
+                padding: 50px;
+            }
+       
+            @media (max-width: 768px) {
+        
+            body {
+                grid-template-columns: 1fr;
+                padding: 15px;
+            }
+        
+            .left-bar {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                text-align: center;
+            }
+        
+            .left-bar h1 {
+                grid-column: span 3;
+            }
+        
+            #counter {
+                grid-column: span 3;
+            }
+        
+            #home {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        
+            img {
+                height: 120px;
+            }
+        
+            #user,
+            #cart {
+                padding: 10px;
+            }
+        }
+        </style>
+    </head>
+    <body>
+        <div class="left-bar">
+            <h1>Troll Cart</h1>
+            <div class="bar" onclick="showHome()">
+                <h2>Home</h2>
+            </div>
+            <div class="bar" onclick="showCart()">
+                <h2>Cart</h2>
+            </div>
+            <div class="bar" onclick="showID()">
+                <h2>You</h2>
+            </div><br>
+            <div id="counter">
+                <h2 id='itemsCounter'>0 Items in Cart!</h2>
+            </div>
+        </div>
+        <div id='home'>
+            <div class="item" onclick="addToCart('Pendrive', 200)">
+                <img src="https://m.media-amazon.com/images/I/51lgNTCiYOL.jpg">
+                <br>
+                <span>Pendrive (16GB) - 200Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Skateboard', 900)">
+                <img src="https://deodap.in/cdn/shop/products/SKATEBOARD9.jpg?v=1751374565&width=1445">
+                <br>
+                <span>Skate Board - 900Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Gaming Mouse', 999)">
+                <img src="https://kreo-tech.com/cdn/shop/files/HawkPDPwebsite.1125.png?v=1759329628&width=1200">
+                <br>
+                <span>Gaming Mouse - 999Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Laptop', 59999)">
+                <img src="https://media.gettyimages.com/id/1241495828/photo/an-asus-vivobook-pro-14x-oled-laptop-computer-taken-on-october-8-2021.jpg?s=612x612&w=0&k=20&c=Ofo91DME5OykwxFm9Ba3jtOd-wfcrcEuuUKEafTgLkk=">
+                <br>
+                <span>Laptop - 59,999Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Wall Painting', 100)">
+                <img src="https://m.media-amazon.com/images/I/51oj9ykqtbS.jpg">
+                <br>
+                <span>Wall Paintings - 100Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Hoodie', 500)">
+                <img src="https://veirdo.in/cdn/shop/files/W_05_SKULL_LB_1.jpg?v=1765442994">
+                <br>
+                <span>Hoodie</span>
+            </div>
+            <div class="item" onclick="addToCart('Nintendo', 20000)">
+                <img src="https://media.gettyimages.com/id/1183198829/photo/a-2019-nintendo-switch-lite-handheld-video-games-console-with-a-gray-finish-taken-on-november.jpg?s=612x612&w=0&k=20&c=fQML0VB_sStaeRUWjDzMG3Le2ey04ktvM8Z2xQhJhlA=">
+                <br>
+                <span>Nintendo - 20,000Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('UNO', 140)">
+                <img src="https://t3.ftcdn.net/jpg/11/25/45/70/360_F_1125457065_uqf8woyyel4qsKlDtyPdQrQvyc7p8IY6.jpg">
+                <br>
+                <span>UNO - 140Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Flower Vase', 350)">
+                <img src="https://rukminim2.flixcart.com/image/612/612/xif0q/vase/k/f/y/3-khnr-pink-p1-mrida-and-maati-8-original-imaha8ay6mhw7juh.jpeg?q=70">
+                <br>
+                <span>Flower Vase - 350Rs</span>
+            </div>
+            <div class="item" onclick="addToCart('Earbuds', 700)">
+                <img src="https://www.leafstudios.in/cdn/shop/files/1_a1411db7-fc20-43fd-8ff9-f3f15366477c_600x.png?v=1742538001">
+                <br>
+                <span>Bluetooth Earbuds - 700Rs</span>
+            </div>
+        </div>
+        <div id='user'>
+            <div id="userInner">
+                <h1>Account</h1>
+                <br>
+                <h2>Name</h2>
+                <h3 class="dataShow" id="nameField"></h3>
+                <br>
+                <h2>Phone Number</h2>
+                <h3 class="dataShow">NA</h3>
+                <br>
+                <h2>Email</h2>
+                <h3 class="dataShow">NA</h3>
+            </div>
+        </div>
+        <div id='cart'>
+            <div id='cartInner'>
+                <h2 style="background-color: rgba(0, 139, 139, 0.24); border-radius: 10px; padding: 10px;">Cart</h2>
+                <h3 style="background-color: rgba(0, 139, 139, 0.24); border-radius: 10px; padding: 10px;" id='cartShow'>No items.</h3>
+                <h3 id='totalShow' style="background-color: rgba(0, 139, 139, 0.24); border-radius: 10px; padding: 10px; text-align: center;">Your Total - ₹0.</h3>
+            </div>
+        </div>
+        <script>
+            let home = document.getElementById('home');
+            let user = document.getElementById('user');
+            let cart = document.getElementById('cart');
+            //let name = prompt("Enter your name ");
+            
+            let showItems = document.getElementById("itemsCounter");
+            
+            let items = {};
+            let price = 0;
+            
+            home.style.display = 'grid';
+            user.style.display = 'none';
+            cart.style.display = 'none';
+            
+            function renderCart() {
+                let output = "";
+                let totalPrice = 0;
+                for (let item in items) {
+                    let qty = items[item].qty;
+                    let itemPrice = items[item].price;
+                    let total = qty * itemPrice;
+                    totalPrice += total;
+                    output += `${item} - Quantity: ${qty} - Price: ₹${total}\n\n`;
+                }
+                document.getElementById('cartShow').innerText = output;
+                document.getElementById('totalShow').innerHTML = `Your Total - ${totalPrice}.`;
+            }
+            
+            function addToCart(itemName, itemPrice) {
+                if (items[itemName]) {
+                    items[itemName].qty++;
+                } else {
+                    items[itemName] = {
+                        qty: 1,
+                        price: itemPrice
+                    };
+                }
+                renderCart();
+                let totalItems = Object.keys(items).length;
+                showItems.innerHTML = `${totalItems} Items in Cart!`;
+            }
+            
+            function showHome() {
+                home.style.display = 'grid';
+                user.style.display = 'none';
+                cart.style.display = 'none';
+            }
+            
+            function showID() {
+                home.style.display = 'none';
+                user.style.display = 'grid';
+                cart.style.display = 'none';
+               document.getElementById("nameField").innerHTML = `${name}`;
+            }
+            
+            function showCart() {
+                home.style.display = 'none';
+                user.style.display = 'none';
+                cart.style.display = 'grid';
+            }
+        </script>
+    </body>
+</html>
