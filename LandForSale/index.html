@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Land For Sale</title>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body{
+        background:#f5f5f5;
+    }
+
+    header{
+        background:#2c3e50;
+        color:white;
+        text-align:center;
+        padding:20px;
+    }
+
+    .container{
+        max-width:1200px;
+        margin:30px auto;
+        padding:0 20px;
+    }
+
+    .grid{
+        display:grid;
+        grid-template-columns:repeat(2, 1fr);
+        gap:25px;
+    }
+
+    .card{
+        background:white;
+        border-radius:10px;
+        overflow:hidden;
+        box-shadow:0 2px 10px rgba(0,0,0,0.1);
+        transition:0.3s;
+    }
+
+    .card:hover{
+        transform:translateY(-5px);
+    }
+
+    .card img{
+        width:100%;
+        height:280px;
+        object-fit:cover;
+        display:block;
+    }
+
+    .card-content{
+        padding:15px;
+    }
+
+    .price{
+        font-size:24px;
+        font-weight:bold;
+        color:#27ae60;
+        margin-bottom:10px;
+    }
+
+    .details{
+        color:#555;
+        line-height:1.6;
+    }
+
+    .contact-btn{
+        display:inline-block;
+        margin-top:15px;
+        padding:10px 18px;
+        background:#3498db;
+        color:white;
+        text-decoration:none;
+        border-radius:5px;
+    }
+
+    .contact-btn:hover{
+        background:#2980b9;
+    }
+
+    @media (max-width: 768px){
+        .grid{
+            grid-template-columns:1fr;
+        }
+
+        .card img{
+            height:220px;
+        }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Land For Sale</h1>
+    <p>Available Properties</p>
+</header>
+
+<div class="container">
+    <div class="grid">
+
+        <!-- LAND 1 -->
+        <div class="card">
+            <img src="images/land1.jpg" alt="Land 1">
+            <div class="card-content">
+                <div class="price">₹12,00,000</div>
+                <div class="details">
+                    1200 Sq Ft Plot<br>
+                    Lucknow, Uttar Pradesh
+                </div>
+                <a href="tel:+919999999999" class="contact-btn">Contact</a>
+            </div>
+        </div>
+
+        <!-- LAND 2 -->
+        <div class="card">
+            <img src="images/land2.jpg" alt="Land 2">
+            <div class="card-content">
+                <div class="price">₹18,50,000</div>
+                <div class="details">
+                    1800 Sq Ft Plot<br>
+                    Kanpur, Uttar Pradesh
+                </div>
+                <a href="tel:+919999999999" class="contact-btn">Contact</a>
+            </div>
+        </div>
+
+        <!-- LAND 3 -->
+        <div class="card">
+            <img src="images/land3.jpg" alt="Land 3">
+            <div class="card-content">
+                <div class="price">₹9,50,000</div>
+                <div class="details">
+                    1000 Sq Ft Plot<br>
+                    Unnao, Uttar Pradesh
+                </div>
+                <a href="tel:+919999999999" class="contact-btn">Contact</a>
+            </div>
+        </div>
+
+        <!-- LAND 4 -->
+        <div class="card">
+            <img src="images/land4.jpg" alt="Land 4">
+            <div class="card-content">
+                <div class="price">₹22,00,000</div>
+                <div class="details">
+                    2500 Sq Ft Plot<br>
+                    Sitapur, Uttar Pradesh
+                </div>
+                <a href="tel:+919999999999" class="contact-btn">Contact</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
