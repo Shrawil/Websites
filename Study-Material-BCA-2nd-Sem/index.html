@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BCA Sem 2 - Study Hub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            max-width: 650px;
+            margin: 40px auto;
+            padding: 0 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #111;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .tab-navigation {
+            display: flex;
+            justify-content: space-between;
+            background: #eee;
+            padding: 5px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            gap: 5px;
+            overflow-x: auto;
+        }
+        .tab-btn {
+            flex: 1;
+            background: none;
+            border: none;
+            padding: 10px 5px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #555;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            color: #111;
+        }
+        .tab-btn.active {
+            background: white;
+            color: #0066cc;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(15px);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .link-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .link-item {
+            background: white;
+            margin: 12px 0;
+            padding: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .link-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+        }
+        .link-item a {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1.05rem;
+            display: block;
+            width: 100%;
+        }
+        .link-item a:hover {
+            text-decoration: underline;
+        }
+        
+        .special-item {
+            border: 2px dashed #ff4d4d;
+            background: #fff5f5;
+        }
+        .special-item a {
+            color: #cc0000;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>BCA Sem 2 Study Hub</h1>
+    <p class="subtitle"><strong>CLICK</strong> any topic below to open the study material.</p>
+
+    <div class="tab-navigation">
+        <button class="tab-btn active" onclick="switchTab('dsa')">DSA</button>
+        <button class="tab-btn" onclick="switchTab('dbms')">DBMS</button>
+        <button class="tab-btn" onclick="switchTab('os')">OS</button>
+        <button class="tab-btn" onclick="switchTab('de')">DE</button>
+        <button class="tab-btn" onclick="switchTab('math')">MATH</button>
+    </div>
+
+    <div id="dsa" class="tab-content active" style="display: block; opacity: 1; transform: translateY(0);">
+        <ul class="link-list">
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dsa/calculation-of-address-of-element-of-1-d-2-d-and-3-d-using-row-major-and-column-major-order/" target="_blank">1. 1D, 2D, 3D Address Calculation. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/sSYQ1H9-Vks?si=_xGn23VTstBjih1t/" target="_blank">2. Linear Search vs Binary Search. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dsa/comparison-among-bubble-sort-selection-sort-and-insertion-sort/" target="_blank">3. Bubble, Selection, Insertion Sort. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/c/implement-stack-in-c/" target="_blank">4. Stack in C. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/c/queue-in-c/" target="_blank">5. Queue in C [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/N6dOwBde7-M?si=HwOKSZ1Ih_90XaDO" target="_blank">6. Linked List. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/iVJ_avaKDXk?si=JwJ-1CZYHHTk4n_5" target="_blank">7. Trees. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/b_NjndniOqY?si=0UoAiLQiLzbdqBZz" target="_blank">8. Tree traversal. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dsa/graph-and-its-representations/" target="_blank">9. Graphs Representation. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dsa/difference-between-bfs-and-dfs/" target="_blank">10. DFS vs BFS. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/h6cUkkaKNHw?si=goOp215VAnToj_Zs" target="_blank">11. Spanning Tree. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/cplfcGZmX7I?si=Hku-Dd7x5KKUaYXC" target="_blank">12. Prim's Algorithm. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/71UQH7Pr9kU?si=JkH1CXP89pAYZ3_u" target="_blank">13. Kruskal's Algorithm. [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dsa/difference-between-prims-and-kruskals-algorithm-for-mst/" target="_blank">14. Prim's vs Kruskal's. [Theory]</a>
+            </li>
+            <li class="link-item special-item">
+                <a href="https://watchbutdonotlearn.github.io/" target="_blank">⚠️ BCA SEM 2 QUESTION PAPER (OFFICIAL)(LEAKED)</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="dbms" class="tab-content">
+        <ul class="link-list">
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dbms/introduction-of-dbms-database-management-system-set-1/" target="_blank">1. Introduction to DBMS. [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dbms/introduction-of-er-model/" target="_blank">2. ER Model [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dbms/introduction-of-dbms-database-management-system-set-1/" target="_blank">3. SQL Commands [Video] [Complete]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://www.geeksforgeeks.org/dbms/types-of-keys-in-relational-model-candidate-super-primary-alternate-and-foreign/" target="_blank">4. Keys in Relational Model [Theory]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/fZ41WtisQgo?si=5lCK2baf_QmFl_I9" target="_blank">5. Functional Dependency [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/9HXJUGT-06w?si=5nSXWE3u41n2brgc" target="_blank">6. Aggregate Functions [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/7FgU1D4EnpQ?si=RU09QbNJhU7aOZuE" target="_blank">7. Two-Phase Commit Protocol [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/rjmSWYZnEgk?si=Hdl9r22-N8L8_FWH" target="_blank">8. Conflict Serializability Schedules [Video]</a>
+            </li>
+            <li class="link-item">
+                <a href="https://youtu.be/SDS9t7ALIIQ?si=NsOFmoLdp5NBMWIV" target="_blank">9. Concurrency Control Techniques [Video]</a>
+            </li>
+            <li class="link-item special-item">
+                <a href="https://youtu.be/YRnjGeQbsHQ?si=YW2ORD-ytSYj-br5" target="_blank">Complete DBMS One Shot [Video]</a>
+            </li>
+
+        </ul>
+    </div>
+
+    <div id="os" class="tab-content">
+        <ul class="link-list">
+            <li class="link-item">
+                <a href="" target="_blank">Working on it.</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="de" class="tab-content">
+        <ul class="link-list">
+            <li class="link-item">
+                <a href="" target="_blank">Working on it.</a>
+            </li>
+        </ul>
+    </div>
+
+    <div id="math" class="tab-content">
+        <ul class="link-list">
+            <li class="link-item">
+                <a href="" target="_blank">Working on it.</a>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            event.target.classList.add('active');
+
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => {
+                if(content.classList.contains('active')) {
+                    content.style.opacity = '0';
+                    content.style.transform = 'translateY(15px)';
+                    setTimeout(() => {
+                        content.classList.remove('active');
+                        content.style.display = 'none';
+                    }, 200);
+                }
+            });
+
+            setTimeout(() => {
+                const targetPanel = document.getElementById(tabId);
+                targetPanel.style.display = 'block';
+                targetPanel.offsetHeight; 
+                targetPanel.classList.add('active');
+                targetPanel.style.opacity = '1';
+                targetPanel.style.transform = 'translateY(0)';
+            }, 200);
+        }
+    </script>
+</body>
+</html>
