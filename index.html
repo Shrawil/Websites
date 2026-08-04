@@ -54,72 +54,170 @@
             .git-card p {
                 color: #1f1f1f;
             }
+
+            .slider{
+                display:flex;
+                overflow-x:auto;
+                scroll-snap-type:x mandatory;
+                scroll-behavior:smooth;
+                width:100%;
+                min-height:100vh;
+            }
+
+            .slider::-webkit-scrollbar{
+                display:none;
+            }
+
+            .page{
+                flex:0 0 100%;
+                scroll-snap-align:start;
+                padding:20px;
+                box-sizing:border-box;
+            }
+
+            .page h1{
+                text-align:center;
+                color:white;
+                margin-bottom:30px;
+            }
+
+            .nav-right{
+                display:flex;
+                justify-content:flex-end;
+                margin-bottom:20px;
+            }
+
+            .nav-left{
+                display:flex;
+                justify-content:flex-start;
+                margin-bottom:20px;
+            }
+
+            .nav-right button,
+            .nav-left button{
+                background:#4e57a4;
+                color:white;
+                border:none;
+                padding:12px 22px;
+                border-radius:8px;
+                cursor:pointer;
+                font-size:16px;
+                transition:0.2s;
+            }
+
+            .nav-right button:hover,
+            .nav-left button:hover{
+                transform:scale(1.05);
+            }
         </style>
     </head>
+
     <body>
-        <h1>My Websites</h1>
-        <div class="grid">
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/Fitness-Tracker/" target="_blank">
-                    <h2>Fitness Tracker</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/ID-Card-Generator/" target="_blank">
-                    <h2>ID Card Generator</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/Resume-Maker/" target="_blank">
-                    <h2>Resume Maker</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/Guess-The-Imposter/" target="_blank">
-                    <h2>Guess The Imposter</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/NinBank/" target="_blank">
-                    <h2>Banking Simulator</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/Simple-Quiz-Program/" target="_blank">
-                    <h2>Simple Quiz</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="card">
-                <a href="https://shrawil.github.io/Websites/Countdown/" target="_blank">
-                    <h2>Countdown</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-			<div class="card">
-                <a href="https://shrawil.github.io/Websites/LandForSale/" target="_blank">
-                    <h2>Land for Sale</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-			<div class="card">
-                <a href="https://shrawil.github.io/Websites/DSA-Topics/" target="_blank">
-                    <h2>Study Topic and Resources</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            <div class="git-card">
-                <a href="https://github.com/Shrawil" target="_blank">
-                    <h2>My Github</h2>
-                    <p>Click to open</p>
-                </a>
-            </div>
-            
+        <div class="slider">
+            <!-- Frontend -->
+            <section class="page" id="frontend">
+                <div class="nav-right">
+                    <button onclick="goToPage('fullstack')">
+                        Full-Stack →
+                    </button>
+                </div>
+                <h1>Frontend Websites</h1>
+                <!-- Put all your current cards here -->
+                <div class="grid">
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/Fitness-Tracker/" target="_blank">
+                            <h2>Fitness Tracker</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/ID-Card-Generator/" target="_blank">
+                            <h2>ID Card Generator</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/Resume-Maker/" target="_blank">
+                            <h2>Resume Maker</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/Guess-The-Imposter/" target="_blank">
+                            <h2>Guess The Imposter</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/NinBank/" target="_blank">
+                            <h2>Banking Simulator</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/Simple-Quiz-Program/" target="_blank">
+                            <h2>Simple Quiz</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/Countdown/" target="_blank">
+                            <h2>Countdown</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/LandForSale/" target="_blank">
+                            <h2>Land for Sale</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="https://shrawil.github.io/Websites/DSA-Topics/" target="_blank">
+                            <h2>Study Topic and Resources</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                    <div class="git-card">
+                        <a href="https://github.com/Shrawil" target="_blank">
+                            <h2>My Github</h2>
+                            <p>Click to open</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <!-- Full Stack -->
+            <section class="page" id="fullstack">
+                <div class="nav-left">
+                    <button onclick="goToPage('frontend')">
+                        ← Frontend
+                    </button>
+                </div>
+                <h1>Full-Stack Web Applications</h1>
+                <div class="grid">
+                    <!-- Add your Django/full-stack projects here -->
+                    <div class="card">
+                        <a href="https://ninhub.onrender.com/" target="_blank">
+                            <h2>NinHub</h2>
+                            <p>Social Media Platform</p>
+                        </a>
+                    </div>
+                    <div class="card">
+                        <a href="YOUR_LINK" target="_blank">
+                            <h2>MovieTime</h2>
+                            <p>Movie Website</p>
+                        </a>
+                    </div>
+                </div>
+            </section>
         </div>
+        <script>
+            function goToPage(id){
+                document.getElementById(id).scrollIntoView({
+                    behavior: "smooth",
+                    inline: "start"
+                });
+            }
+        </script>
     </body>
 </html>
